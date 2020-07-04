@@ -37,4 +37,25 @@ exports.route = (app, connection) => {
         const [data] = await connection.query(`INSERT INTO employees SET ?;`, req.body);
         res.json({created: true, ...req.body});
     });
+
+    app.patch('/departments/id/:id', async (req, res) =>{
+        const id = req.params.id;
+        const update = req.body;
+        const [data] = await connection.query(`UPDATE associate_analystdb.departments SET ? WHERE (id = ?);`, [update, id]);
+        res.json({updated: true, ...req.body});
+    });
+
+    app.patch('/roles/id/:id', async (req, res) =>{
+        const id = req.params.id;
+        const update = req.body;
+        const [data] = await connection.query(`UPDATE associate_analystdb.roles SET ? WHERE (id = ?);`, [update, id]);
+        res.json({updated: true, ...req.body});
+    });
+
+    app.patch('/employees/id/:id', async (req, res) =>{
+        const id = req.params.id;
+        const update = req.body;
+        const [data] = await connection.query(`UPDATE associate_analystdb.employees SET ? WHERE (id = ?);`, [update, id]);
+        res.json({updated: true, ...req.body});
+    });
 }
