@@ -1,23 +1,13 @@
-exports.route = (app, connection) => {
-    app.get('/status', (req, res) => {
-        const status = {
-            status: 'ok associate analyst'
-        }
-        res.json(status);
-    });
+const employee = require('./controllers/employee');
+const department = require('./controllers/department');
+const role = require('./controllers/role');
+
+exports.route = (app) => {
+    app.get('/status', employee.status);
     //Get info
-    app.get('/departments', async (req, res) => {
-        const [data] = await connection.query(`SELECT * FROM departments;`);
-        res.json(data);
-    });
-    app.get('/roles', async (req, res) => {
-        const [data] = await connection.query(`SELECT * FROM roles;`);
-        res.json(data);
-    });
-    app.get('/employees', async (req, res) => {
-        const [data] = await connection.query(`SELECT * FROM employees;`);
-        res.json(data);
-    });
+    app.get('/departments', department.read);
+    app.get('/roles', role.read);
+    app.get('/employees', employee.read);
     //post new info
     app.post('/departments', async (req, res) =>{
         const [data] = await connection.query(`INSERT INTO departments SET ?;`, req.body);

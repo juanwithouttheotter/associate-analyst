@@ -2,18 +2,15 @@ const express = require("express");
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const routes = require("./routes");
-const connection = require("./connection");
 const app = express();
 const PORT = 9000;
 
-const run = async (app) => {
-    const connected = await connection.connect();
-    routes.route(app, connected);
-}
+routes.route(app);
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-run(app);
 
-app.listen(PORT, () => {console.log("App listening on PORT: " + PORT)});
+
+app.listen(PORT, () => { console.log("App listening on PORT: " + PORT) });
