@@ -15,9 +15,10 @@ exports.insertEmployee = async (employee_obj) => {
     const [data] = await connection.query(`INSERT INTO employees SET ?`, employee_obj);
     return data;
 }
-exports.updateEmployee = async (id, employee_obj) => {
+exports.updateManager = async (managerId, employee_obj) => {
     const connection = await mysql.connect();
-    const [data] = await connection.query(`UPDATE employees SET ? WHERE (id = ?);`, [employee_obj, id]);
+    const [data] = await connection.query(`UPDATE employees SET ? WHERE manager_id IS NULL AND role_id = ?;`, [employee_obj, managerId]);
     return data;
 }
+
 

@@ -29,4 +29,12 @@ exports.update = async (req, res) => {
     await employee.updateEmployee(id);
     res.json(employee.getEmployee());
 }
+exports.updateManagersById = async (req, res) => {
+    const managerId = req.params.id;
+    const employee = new Employee();
+    employee.merge(req.body);
+    await employee.updateManager(managerId);
+    res.json(employee.getEmployee());
+}
+
 

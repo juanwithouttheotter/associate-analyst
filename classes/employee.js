@@ -54,6 +54,9 @@ class Employee {
     async updateEmployee(id){
         await employeeModel.updateEmployee(id, this._employee);
     }
+    async updateManager(managerId){
+        await employeeModel.updateManager(managerId, this._employee);
+    }
 
 }
 
