@@ -1,41 +1,40 @@
-const companyModel = require('../models/company');
+const departmentModel = require('../models/department');
 
 class Department {
-    constructor(department_obj){
+    constructor(department_obj) {
         this._department = department_obj;
     }
 
-    get id(){
+    get id() {
         return this._department.id;
     }
 
-    get title(){
-        return this._department.title;
+    get name() {
+        return this._department.name;
     }
-    set title(title){
-        this._department.title = title;
+    set name(name) {
+        this._department.name = name;
     }
-
-    get salary(){
-        return this._department.salary;
-    }
-    set salary(salary){
-        this._department.salary = salary;
-    }
-
-    get department_id(){
-        return this._department.department_id;
-    }
-    set department_id(department_id){
-        this._department.department_id = department_id;
-    }
-    getDepartment(){
+    getDepartment() {
         return this._department;
     }
-    async getAllDepartments(){
-        const table = "departments";
-        this._department = await companyModel.selectAllByTable(table);
+    merge(new_department) {
+        this._department = ({ ...this._department, ...new_department });
     }
+    async getAllDepartments() {
+        this._department = await departmentModel.selectAllDepartments();
+    }
+    async getBudget(id) {
+        this._department = await departmentModel.selectTotalDeptBudget(id);
+    }
+    async insertDepartment() {
+        const results = await departmentModel.insertDepartment(this._department);
+        this._department.id = results.insertId;
+    }
+    async updateDept(id) {
+        await departmentModel.updateDept(id, this._department);
+    }
+
 
 }
 

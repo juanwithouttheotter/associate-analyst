@@ -5,3 +5,15 @@ exports.read = async (req, res) => {
     await role.getAllRoles();
     res.json(role.getRole());
 }
+exports.create = async (req, res) => {
+    const role = new Role(req.body);
+    await role.insertRole();
+    res.json(role.getRole());
+}
+exports.update = async (req, res) =>  {
+    const id = req.params.id;
+    const role = new Role();
+    role.merge(req.body);
+    await role.updateRole(id);
+    res.json(role.getRole());
+}

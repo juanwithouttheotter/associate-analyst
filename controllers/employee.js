@@ -11,3 +11,22 @@ exports.read = async (req, res) => {
     await employee.getAllEmployees();
     res.json(employee.getEmployee());
 }
+exports.readByManager = async (req, res) => {
+    const id = req.params.id;
+    const employee = new Employee();
+    await employee.getByManager(id);
+    res.json(employee.getEmployee());
+}
+exports.create = async (req, res) => {
+    const employee = new Employee(req.body);
+    await employee.insertEmployee();
+    res.json(employee.getEmployee());
+}
+exports.update = async (req, res) => {
+    const id = req.params.id;
+    const employee = new Employee();
+    employee.merge(req.body);
+    await employee.updateEmployee(id);
+    res.json(employee.getEmployee());
+}
+

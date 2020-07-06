@@ -1,4 +1,4 @@
-const companyModel = require('../models/company');
+const employeeModel = require('../models/employee');
 class Employee {
     constructor(employee_obj){
         this._employee = employee_obj;
@@ -38,9 +38,21 @@ class Employee {
     getEmployee(){
         return this._employee;
     }
+    merge(new_employee){
+        this._employee = ({...this._employee, ...new_employee});
+    }
     async getAllEmployees(){
-        const table = "employees";
-        this._employee = await companyModel.selectAllByTable(table);
+        this._employee = await employeeModel.selectAllEmployees();
+    }
+    async getByManager(id) {
+        this._employee = await employeeModel.selectByManager(id);
+    }
+    async insertEmployee() {
+        const results = await employeeModel.insertEmployee(employee_obj);
+        this._employee.id = results.insertId;
+    }
+    async updateEmployee(id){
+        await employeeModel.updateEmployee(id, this._employee);
     }
 
 }
