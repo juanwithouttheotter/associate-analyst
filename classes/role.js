@@ -45,6 +45,9 @@ class Role {
     async updateRole(id) {
         await roleModel.updateRole(id, this._role);
     }
+    async deleteRole(id) {
+        await roleModel.deleteRole(id);
+    }
 
 }
 

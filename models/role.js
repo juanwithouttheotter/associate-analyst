@@ -15,3 +15,8 @@ exports.updateRole = async (id, role_obj) => {
     const [data] = await connection.query(`UPDATE roles SET ? WHERE (id = ?);`, [role_obj, id]);
     return data;
 }
+exports.deleteRole = async (id) => {
+    const connection = await mysql.connect();
+    const [data] = await connection.query(`DELETE FROM roles WHERE id = ?;`, id);
+    return data;
+}

@@ -24,3 +24,9 @@ exports.update = async (req, res) => {
     res.json(department.getDepartment());
     
 }
+exports.delete = async (req,res) => {
+    const id = req.params.id;
+    const department = new Department();
+    await department.deleteDepartment(id);
+    res.json({deleted: true});
+}

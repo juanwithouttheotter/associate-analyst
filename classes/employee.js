@@ -41,6 +41,7 @@ class Employee {
     merge(new_employee){
         this._employee = ({...this._employee, ...new_employee});
     }
+    
     async getAllEmployees(){
         this._employee = await employeeModel.selectAllEmployees();
     }
@@ -48,7 +49,7 @@ class Employee {
         this._employee = await employeeModel.selectByManager(id);
     }
     async insertEmployee() {
-        const results = await employeeModel.insertEmployee(employee_obj);
+        const results = await employeeModel.insertEmployee(this._employee);
         this._employee.id = results.insertId;
     }
     async updateEmployee(id){
@@ -56,6 +57,9 @@ class Employee {
     }
     async updateManager(managerId){
         await employeeModel.updateManager(managerId, this._employee);
+    }
+    async deleteEmployee(id) {
+        await employeeModel.deleteEmployee(id);
     }
 
 }

@@ -28,25 +28,11 @@ exports.route = (app) => {
         //Only update employee managers by id
     app.patch('/employees/managers/:id', employee.updateManagersById);
 
-    
-   
-
-    //if manager is deleted, employees manager id is set to null.
-    app.delete('/employees/:id', async (req, res) => {
-        const id = req.params.id;
-        const [data] = await connection.query(`DELETE FROM employees WHERE id = ?;`, id);
-        res.json({ deleted: true, ...data })
-    });
-    //If role is deleted, so are employees in that role. 
-    app.delete('/roles/:id', async (req, res) => {
-        const id = req.params.id;
-        const [data] = await connection.query(`DELETE FROM roles WHERE id = ?;`, id);
-        res.json({ deleted: true, ...data })
-    });
-    //If department is deleted, roles and employees are deleted. 
-    app.delete('/departments/:id', async (req, res) => {
-        const id = req.params.id;
-        const [data] = await connection.query(`DELETE FROM departments WHERE id = ?;`, id);
-        res.json({ deleted: true, ...data })
-    });
+    //Delete info
+        //if manager is deleted, employees manager id is set to null.
+    app.delete('/employees/:id', employee.delete);
+        //If role is deleted, so are employees in that role. 
+    app.delete('/roles/:id', role.delete);
+        //If department is deleted, roles and employees are deleted. 
+    app.delete('/departments/:id', department.delete);
 }

@@ -17,3 +17,9 @@ exports.update = async (req, res) =>  {
     await role.updateRole(id);
     res.json(role.getRole());
 }
+exports.delete = async (req,res) => {
+    const id = req.params.id;
+    const role = new Role();
+    await role.deleteRole(id);
+    res.json({deleted: true});
+}

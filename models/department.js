@@ -20,3 +20,8 @@ exports.updateDept = async (id, department_obj) => {
     const [data] = await connection.query(`UPDATE departments SET ? WHERE (id = ?);`, [department_obj, id]);
     return data;
 }
+exports.deleteDepartment = async (id) => {
+    const connection = await mysql.connect();
+    const [data] = await connection.query(`DELETE FROM departments WHERE id = ?;`, id);
+    return data;
+}

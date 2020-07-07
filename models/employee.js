@@ -20,5 +20,10 @@ exports.updateManager = async (managerId, employee_obj) => {
     const [data] = await connection.query(`UPDATE employees SET ? WHERE manager_id IS NULL AND role_id = ?;`, [employee_obj, managerId]);
     return data;
 }
+exports.deleteEmployee = async (id) => {
+    const connection = await mysql.connect();
+    const [data] = await connection.query(`DELETE FROM employees WHERE id = ?;`, id);
+    return data;
+}
 
 

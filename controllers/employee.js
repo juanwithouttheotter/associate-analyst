@@ -36,5 +36,11 @@ exports.updateManagersById = async (req, res) => {
     await employee.updateManager(managerId);
     res.json(employee.getEmployee());
 }
+exports.delete = async (req,res) => {
+    const id = req.params.id;
+    const employee = new Employee();
+    await employee.deleteEmployee(id);
+    res.json({deleted: true});
+}
 
 

@@ -34,6 +34,9 @@ class Department {
     async updateDept(id) {
         await departmentModel.updateDept(id, this._department);
     }
+    async deleteDepartment(id) {
+        await departmentModel.deleteDepartment(id);
+    }
 
 
 }
